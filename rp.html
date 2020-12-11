@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Создать конфиг - IDM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12"><a href="/idm_lp/config.html">Создание конфига</a></div>
+        <div class="col-12"><a href="/idm_lp/rp.html">Создание РП-команды</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <form id="id_rp_form" onsubmit="return start();">
+            <div class="form-group">
+              <label for="id_name">Имя РП</label>
+              <input type="text" id="id_name" data-field="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="id_gen">Падеж</label>
+              <select id="id_gen" data-field="gen" class="form-select">
+                <option value="nom">именительный</option>
+                <option value="gen">родительный</option>
+                <option value="dat">дательный</option>
+                <option value="acc" selected>винительный</option>
+                <option value="ins">творительный</option>
+                <option value="abl">предложный</option>
+              </select>
+              <small class="text-muted">Падеж в какой возводить РПшку</small>
+            </div>
+            <div class="form-group">
+              <label for="id_formatter_man">Форматтер при вызове РП (муж.)</label>
+              <input type="text" id="id_formatter_man" data-field="formatter_man" class="form-control" value="{first_user} {second_user}" required>
+              <small class="text-muted">Форматтер при вызове одиночной РП (обнять @lllordralll).Должен содержать {first_user} {second_user}</small>
+            </div>
+            <div class="form-group">
+              <label for="id_formatter_woman">Форматтер при вызове РП (жен.)</label>
+              <input type="text" id="id_formatter_woman" data-field="formatter_woman" class="form-control" value="{first_user} {second_user}" required>
+              <small class="text-muted">Форматтер при вызове одиночной РП (обнять @lllordralll).Должен содержать {first_user} {second_user}</small>
+            </div>
+            <div class="form-group">
+              <label for="id_all_ending">Окончание для всех пользователей</label>
+              <input type="text" id="id_all_ending" data-field="all_ending" class="form-control" value="сразу всех" required>
+              <small class="text-muted">Заменяет {second_user}</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Скачать РП</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function downloadAsFile(data) {
+      let a = document.createElement("a");
+      let file = new Blob([data], {type: 'application/json'});
+      a.href = URL.createObjectURL(file);
+      a.download = "rp.json";
+      a.click();
+    }
+
+    function start(){
+      let data = {
+        "name": "",
+        "gen": "",
+        "formatter_man": "{first_user} {second_user}",
+        "formatter_woman": "{first_user} {second_user}",
+        "all_ending": ""
+      };
+
+      $("form#id_rp_form :input").each((index, element) => {
+        let input = $(element); data[input.data('field')] = input.val();
+      });
+      downloadAsFile(JSON.stringify(data))
+      return false;
+    }
+  </script>
+</body>
+</html>

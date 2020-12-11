@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Создать конфиг - IDM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12"><a href="/idm_lp/config.html">Создание конфига</a></div>
+        <div class="col-12"><a href="/idm_lp/rp.html">Создание РП-команды</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <form id="id_config_form" onsubmit="return start();">
+            <div class="card">
+              <div class="card-header">Токены</div>
+              <div class="card-body" id="tokens-container">
+                <div class="form-group">
+                  <label for="id_token_1">Токен 1</label>
+                  <input type="text" id="id_token_1" data-field="tokens" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="id_token_2">Токен 2</label>
+                  <input type="text" id="id_token_2" data-field="tokens" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="id_token_3">Токен 3</label>
+                  <input type="text" id="id_token_3" data-field="tokens" class="form-control" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="id_secret_code">Секретный код</label>
+              <input type="text" id="id_secret_code" data-field="secret_code" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="id_ru_captcha_key">Ключ RUCAPTCHA</label>
+              <input type="text" id="id_ru_captcha_key" data-field="ru_captcha_key" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Скачать конфиг</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function downloadAsFile(data) {
+      let a = document.createElement("a");
+      let file = new Blob([data], {type: 'application/json'});
+      a.href = URL.createObjectURL(file);
+      a.download = "config.json";
+      a.click();
+    }
+
+    function start(){
+      let data = {
+        "tokens": [],
+        "secret_code": "",
+        "delete_all_notify": false,
+        "ru_captcha_key": "",
+        "ignored_members": [],
+        "ignored_global_members": [],
+        "muted_members": [],
+        "aliases": [],
+        "service_prefixes": ["!слп", ".слп"],
+        "self_prefixes": ["!л", ".л"],
+        "duty_prefixes": ["!лд", ".лд"]
+      };
+
+      $("form#id_config_form :input").each((index, element) => {
+        let input = $(element);
+        if (input.data('field') !== 'tokens') data[input.data('field')] = input.val()
+        else data[input.data('field')].push(input.val())
+      });
+      downloadAsFile(JSON.stringify(data))
+      return false;
+    }
+  </script>
+</body>
+</html>
