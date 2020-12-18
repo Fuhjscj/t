@@ -1,9 +1,9 @@
 [User]
-tokens=""
-secret_code=""
+tokens=
+secret_code=
 
 [Database]
-host=""
-user=""
-password=""
-database=""
+host=
+user=
+password=
+database=
