@@ -7,6 +7,8 @@ verify_ssl = true
 
 [packages]
 vkbottle = "*"
+tortoise-orm = "*"
+aiomysql = "*"
 
 [requires]
 python_version = "3.8"

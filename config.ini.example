@@ -1,0 +1,9 @@
+[User]
+tokens=""
+secret_code=""
+
+[Database]
+host=""
+user=""
+password=""
+database=""

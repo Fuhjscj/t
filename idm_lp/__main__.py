@@ -1,8 +1,15 @@
 import argparse
 import gettext
 import locale
+from configparser import ConfigParser
 from gettext import gettext as _
 import os
+from tortoise import Tortoise
+
+from vkbottle import User
+
+from .commands import blueprints
+from . import const
 
 base_dir = os.path.dirname(__file__)
 lang_dir = os.path.join(base_dir, 'lang')
@@ -31,6 +38,17 @@ def __translate_standard_messages():
     _('positional arguments')
     _('show this help message and exit')
     _('usage: ')
+
+
+def init_database(url: str):
+    async def init():
+        await Tortoise.init(
+            db_url=url,
+            modules={'models': ['idm_lp.models']}
+        )
+        await Tortoise.generate_schemas()
+
+    return init
 
 
 def _get_locale():
@@ -101,8 +119,13 @@ start_parser = subparsers.add_parser('start', help=_('Запуск скрипт�
 
 script_name = script_parser.add_argument('script_name', help=_('Имя скрипта'))
 
-
-start_parser.add_argument('config_path', action='store', type=str, help=_('Путь до конфига'))
+start_parser.add_argument(
+    '--config_path',
+    default='config.ini',
+    action='store',
+    type=str,
+    help=_('Путь до конфига')
+)
 start_parser.add_argument(
     '--vkbottle-logger-level',
     default='INFO',
@@ -113,7 +136,7 @@ start_parser.add_argument(
 )
 start_parser.add_argument(
     '--vkbottle-logger-file-path',
-    default=None,
+    default='logs/vkbottle.log',
     action='store',
     type=str,
     help=_('Путь до файла с логами vkbottle')
@@ -123,12 +146,26 @@ args = parser.parse_args()
 print(args)
 
 if hasattr(args, 'script_name'):
-    from . import utils
+    from . import utils, const
+
     if hasattr(utils, args.script_name):
         getattr(utils, args.script_name)(base_dir)
     else:
         print(_("Скрипт %s не найден" % args.script_name))
     exit(1)
 
+if hasattr(args, 'config_path'):
+    config = ConfigParser()
+    config.read(args.config_path)
+    const.config = config
 
-l = 1
+    database_url = "mysql://%(user)s:%(password)s@%(host)s:3306/%(database)s" % config['Database']
+
+    user = User(
+        tokens=config['User']['tokens'].split(","),
+        log_to_path=args.vkbottle_logger_file_path
+    )
+    user.set_blueprints(*blueprints)
+    user.run_polling(
+        on_startup=init_database(database_url)
+    )
