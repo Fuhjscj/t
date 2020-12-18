@@ -156,14 +156,15 @@ if hasattr(args, 'script_name'):
 
 if hasattr(args, 'config_path'):
     config = ConfigParser()
-    config.read(args.config_path)
+    config.read(args.config_path, encoding='utf-8')
     const.config = config
 
     database_url = "mysql://%(user)s:%(password)s@%(host)s:3306/%(database)s" % config['Database']
     from .validators import *
     user = User(
         tokens=config['User']['tokens'].split(","),
-        log_to_path=args.vkbottle_logger_file_path
+        log_to_path=args.vkbottle_logger_file_path,
+        debug=args.vkbottle_logger_level
     )
     user.set_blueprints(*blueprints)
     user.run_polling(

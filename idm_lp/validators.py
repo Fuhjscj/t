@@ -25,15 +25,18 @@ async def role_play_command(value: str) -> Optional[RolePlayCommand]:
 
 
 def prefix_self(value: str):
-    return value.lower() in config['Prefixes']['self'].split(',')
+    if value.lower() in config['Prefixes']['self'].split(','):
+        return value.lower()
 
 
 def prefix_duty(value: str):
-    return value.lower() in config['Prefixes']['duty'].split(',')
+    if value.lower() in config['Prefixes']['duty'].split(','):
+        return value.lower()
 
 
 def prefix_service(value: str):
-    return value.lower() in config['Prefixes']['service'].split(',')
+    if value.lower() in config['Prefixes']['service'].split(','):
+        return value.lower()
 
 
 patcher = Patcher.get_current()
