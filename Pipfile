@@ -9,6 +9,8 @@ verify_ssl = true
 vkbottle = "*"
 tortoise-orm = "*"
 aiomysql = "*"
+asgiref = "*"
+aiohttp = "*"
 
 [requires]
 python_version = "3.8"

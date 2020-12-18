@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "71601542a0147ac6a2834cb5e81786f5bce4a4d0eeaf592e5c92d1fa6585fb2f"
+            "sha256": "96a4480a216b0bba91fa7e8062f9eefd4b776e926b2e2f6a57c6fbff6d218c2a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -56,7 +56,7 @@
                 "sha256:f326b3c1bbfda5b9308252ee0dcb30b612ee92b0e105d4abec70335fab5b1245",
                 "sha256:f411cb22115cb15452d099fec0ee636b06cf81bfb40ed9c02d30c8dc2bc2e3d1"
             ],
-            "markers": "python_version >= '3.6'",
+            "index": "pypi",
             "version": "==3.7.3"
         },
         "aiomysql": {
@@ -74,6 +74,14 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==0.16.0"
+        },
+        "asgiref": {
+            "hashes": [
+                "sha256:5ee950735509d04eb673bd7f7120f8fa1c9e2df495394992c73234d526907e17",
+                "sha256:7162a3cb30ab0609f1a4c95938fd73e8604f63bdba516a7f7d64b83ff09478f0"
+            ],
+            "index": "pypi",
+            "version": "==3.3.1"
         },
         "async-timeout": {
             "hashes": [
