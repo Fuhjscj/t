@@ -160,7 +160,7 @@ if hasattr(args, 'config_path'):
     const.config = config
 
     database_url = "mysql://%(user)s:%(password)s@%(host)s:3306/%(database)s" % config['Database']
-
+    from .validators import *
     user = User(
         tokens=config['User']['tokens'].split(","),
         log_to_path=args.vkbottle_logger_file_path

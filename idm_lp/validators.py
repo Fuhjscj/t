@@ -1,14 +1,13 @@
 from typing import Optional
-from asgiref.sync import async_to_sync
 
+from asgiref.sync import async_to_sync
 from tortoise.exceptions import DoesNotExist
-from vbml.blanket import validator
+from vbml import Patcher
 
 from idm_lp.const import config
 from idm_lp.models import Alias, RolePlayCommand
 
 
-@validator
 @async_to_sync
 async def alias(value: str) -> Optional[Alias]:
     try:
@@ -17,7 +16,6 @@ async def alias(value: str) -> Optional[Alias]:
         return
 
 
-@validator
 @async_to_sync
 async def role_play_command(value: str) -> Optional[RolePlayCommand]:
     try:
@@ -26,16 +24,22 @@ async def role_play_command(value: str) -> Optional[RolePlayCommand]:
         return
 
 
-@validator
 def prefix_self(value: str):
     return value.lower() in config['Prefixes']['self'].split(',')
 
 
-@validator
 def prefix_duty(value: str):
     return value.lower() in config['Prefixes']['duty'].split(',')
 
 
-@validator
 def prefix_service(value: str):
     return value.lower() in config['Prefixes']['service'].split(',')
+
+
+patcher = Patcher.get_current()
+setattr(patcher.validators, 'alias', alias)
+setattr(patcher.validators, 'role_play_command', role_play_command)
+setattr(patcher.validators, 'prefix_self', prefix_self)
+setattr(patcher.validators, 'prefix_duty', prefix_duty)
+setattr(patcher.validators, 'prefix_service', prefix_service)
+Patcher.set_current(patcher)
