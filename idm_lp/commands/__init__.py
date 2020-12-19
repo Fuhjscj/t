@@ -1,10 +1,14 @@
 from . import info
 from . import ping
-from .signals import blueprints
+
+from .managers import blueprints as managers_blueprints
+from .signals import blueprints as signals_blueprints
+
 
 blueprints = (
     info.user,
     ping.user,
-    *blueprints,
+    *managers_blueprints,
+    *signals_blueprints,
 )
 

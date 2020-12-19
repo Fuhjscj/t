@@ -4,6 +4,8 @@ import locale
 from configparser import ConfigParser
 from gettext import gettext as _
 import os
+
+import requests
 from tortoise import Tortoise
 
 from vkbottle import User
@@ -40,6 +42,32 @@ def __translate_standard_messages():
     _('usage: ')
 
 
+def startup_message(_user: User):
+    async def wrapper():
+        text = _(
+            "IDM LP by %(author)s запущен\n"
+            "Текущая версия: v%(version)s\n"
+        ) % dict(
+            version=const.__version__,
+            author=const.__author__
+        )
+        version_rest = requests.get(const.VERSION_REST).json()
+        cloud_version = const.Version(**version_rest['version'])
+        if cloud_version > const.Version():
+            text += _(
+                "Доступно обновление %(version)s\n%(github_url)s"
+            ) % dict(
+                version=cloud_version.str(),
+                github_url=const.GITHUB_LINK
+            )
+        await user.api.messages.send(
+            peer_id=await user.api.user_id,
+            random_id=0,
+            message=text
+        )
+    return wrapper
+
+
 def init_database(url: str):
     async def init():
         await Tortoise.init(
@@ -51,6 +79,14 @@ def init_database(url: str):
         await utils.temp.RolePlayCommandTemp.load_from_db()
 
     return init
+
+
+def startup(_user: User, _database_url: str):
+    async def wrapper():
+        await init_database(_database_url)()
+        await startup_message(_user)()
+
+    return wrapper
 
 
 def _get_locale():
@@ -162,6 +198,7 @@ if hasattr(args, 'config_path'):
 
     database_url = "mysql://%(user)s:%(password)s@%(host)s:3306/%(database)s" % config['Database']
     from .validators import *
+
     user = User(
         tokens=config['User']['tokens'].split(","),
         log_to_path=args.vkbottle_logger_file_path,
@@ -169,5 +206,5 @@ if hasattr(args, 'config_path'):
     )
     user.set_blueprints(*blueprints)
     user.run_polling(
-        on_startup=init_database(database_url)
+        on_startup=startup(user, database_url)
     )
