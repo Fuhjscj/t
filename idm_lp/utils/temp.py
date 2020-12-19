@@ -24,6 +24,19 @@ class AliasTemp:
         cls.data.append(AliasPydantic.load(alias))
         return alias
 
+    @classmethod
+    async def delete(cls, name: str):
+        alias = await Alias.get_or_none(name=name)
+        if not alias:
+            return False
+        await alias.delete()
+        for i in range(len(cls.data)):
+            if cls.data[i].name == name:
+                cls.data.remove(cls.data[i])
+                return True
+        return False
+
+
 
 class RolePlayCommandTemp:
     data: List[RolePlayCommandPydantic] = []
