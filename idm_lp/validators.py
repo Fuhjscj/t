@@ -13,7 +13,7 @@ def alias(value: str) -> Optional[AliasPydantic]:
     return AliasTemp.get_by_name(value.lower())
 
 
-async def role_play_command(value: str) -> Optional[RolePlayCommandPydantic]:
+def role_play_command(value: str) -> Optional[RolePlayCommandPydantic]:
     return RolePlayCommandTemp.get_by_name(value.lower())
 
 
