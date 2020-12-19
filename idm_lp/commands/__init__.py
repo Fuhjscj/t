@@ -1,8 +1,8 @@
 from . import ping
-from . import self_signal
+from .signals import blueprints
 
 blueprints = (
     ping.user,
-    self_signal.user,
+    *blueprints,
 )
 

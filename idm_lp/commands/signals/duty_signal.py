@@ -1,35 +1,34 @@
-from vkbottle.rule import FromMe
-from vkbottle.user import Blueprint, Message
-
 from idm_lp import const
 from idm_lp.utils import send_request
+from vkbottle.user import Blueprint, Message
 
 user = Blueprint(
-    name='self_signal_blueprint'
+    name='duty_signal_blueprint'
 )
 
 
-@user.on.message_handler(FromMe(), text='<prefix:prefix_self> <signal>')
-async def self_signal(message: Message, prefix: str, signal: str):
+@user.on.message_handler(text='<p:prefix_duty> [id<user_id:int>|<name>] <signal>')
+async def duty_signal(message: Message, prefix: str, user_id: int, signal: str, **kwargs):
+    if user_id != await message.api.user_id:
+        return
     message_ = message.dict()
     __model = {
-        "user_id": message_['from_id'],
-        "method": "lpSendMySignal",
+        "user_id": await message.api.user_id,
+        "method": "lpSendSignal",
         "secret": const.config['User']['secret_code'],
         "message": {
             "conversation_message_id": message_['conversation_message_id'],
             "from_id": message_['from_id'],
             "date": message.date,
-            "text": message.text,
+            "text": prefix + ' ' + signal,
             "peer_id": message.peer_id
         },
         "object": {
             "chat": None,
             "from_id": message_['from_id'],
-            "value": prefix + ' ' + signal,
+            "value": signal,
             "conversation_message_id": message_['conversation_message_id']
         },
         "vkmessage": message_
     }
-
     await send_request(__model)

@@ -8,7 +8,9 @@ from idm_lp import const
 from idm_lp.models import Alias
 from idm_lp.utils import edit_message, check_ping
 
-user = Blueprint()
+user = Blueprint(
+    name="ping_blueprint"
+)
 
 
 async def get_delta(func, args: Tuple = None, kwargs: Dict = None):
