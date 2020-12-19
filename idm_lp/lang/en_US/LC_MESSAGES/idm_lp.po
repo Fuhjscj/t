@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-11-22 16:26+0300\n"
-"PO-Revision-Date: 2020-11-22 16:27+0300\n"
+"POT-Creation-Date: 2020-12-19 05:10+0300\n"
+"PO-Revision-Date: 2020-12-19 05:20+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -14,42 +14,50 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: __main__.py:13
+#: __main__.py:33
 #, python-format
 msgid "%(prog)s: error: %(message)s\n"
 msgstr "%(prog)s: error: %(message)s\n"
 
-#: __main__.py:14
+#: __main__.py:34
 msgid "expected one argument"
 msgstr "expected one argument"
 
-#: __main__.py:15
+#: __main__.py:35
 #, python-format
 msgid "invalid choice: %(value)r (choose from %(choices)s)"
 msgstr "invalid choice: %(value)r (choose from %(choices)s)"
 
-#: __main__.py:16
+#: __main__.py:36
 #, python-format
 msgid "not allowed with argument %s"
 msgstr "not allowed with argument %s"
 
-#: __main__.py:17
+#: __main__.py:37
 msgid "optional arguments"
 msgstr "optional arguments"
 
-#: __main__.py:18
+#: __main__.py:38
 msgid "positional arguments"
 msgstr "positional arguments"
 
-#: __main__.py:19
+#: __main__.py:39
 msgid "show this help message and exit"
 msgstr "show this help message and exit"
 
-#: __main__.py:20
+#: __main__.py:40
 msgid "usage: "
 msgstr "usage: "
 
-#: __main__.py:38
+#: __main__.py:84 __main__.py:109
+msgid "Language to use."
+msgstr "Используемый язык."
+
+#: __main__.py:88 __main__.py:113
+msgid "Locale to use."
+msgstr "Используемый язык."
+
+#: __main__.py:100
 msgid ""
 "LP модуль позволяет работать приемнику сигналов «IDM multi» работать в любых "
 "чатах.\n"
@@ -59,6 +67,145 @@ msgstr ""
 "room.\n"
 "He also adds ignore, global ignore, mut and alias."
 
-#: __main__.py:45
+#: __main__.py:115
+msgid "Вариант запуска"
+msgstr "Launch option"
+
+#: __main__.py:117
+msgid "Скрипты помощи"
+msgstr "Help scripts"
+
+#: __main__.py:118
 msgid "Запуск скрипта"
 msgstr "Running a script"
+
+#: __main__.py:120
+msgid "Имя скрипта"
+msgstr "Script name"
+
+#: __main__.py:127
+msgid "Путь до конфига"
+msgstr "Path to config"
+
+#: __main__.py:135
+msgid "Уровень логгирования vkbottle"
+msgstr "Vkbottle logging level"
+
+#: __main__.py:142
+msgid "Путь до файла с логами vkbottle"
+msgstr "Path to the file with vkbottle logs"
+
+#: __main__.py:154
+#, python-format
+msgid "Скрипт %s не найден"
+msgstr "Script %s not found"
+
+#: commands/info.py:26
+#, python-format
+msgid ""
+"❤ IDM LP v%(version)s by %(author)s\n"
+"▶ Язык lang\n"
+"\n"
+"▶ Ключ рукаптчи: %(ru_captcha_key)s\n"
+"\n"
+"▶ Удаление all-пушей: %(delete_all_notify)s\n"
+"▶ Удаление пушей на себя: %(delete_self_notify)s\n"
+"\n"
+"▶ Выход из бесед: %(efc_enable)s\n"
+"▶ Выход из бесед: удалять чат %(efc_delete_chat)s\n"
+"▶ Выход из бесед: блокировать пригласившего %(efc_block_sender)s\n"
+"▶ Выход из бесед: схема %(efc_scheme)s\n"
+"\n"
+"▶ В игноре: %(ignored)d\n"
+"▶ В глобальном игноре: %(ignored_global)d\n"
+"▶ В муте: %(muted)d\n"
+"\n"
+"▶ Сервисные префиксы: %(service_prefixes)s\n"
+"▶ Свои префиксы: %(self_prefixes)s\n"
+"▶ Префиксы дежурного: %(duty_prefixes)s\n"
+msgstr ""
+"❤ IDM LP v%(version)s by %(author)s\n"
+"▶ Language English\n"
+"\n"
+"▶ Captcha key: %(ru_captcha_key)s\n"
+"\n"
+"▶ Delete all-push notifications: %(delete_all_notify)s\n"
+"▶ Delete push notifications to yourself: %(delete_self_notify)s\n"
+"\n"
+"▶ Leave conversations: %(efc_enable)s\n"
+"▶ Leave conversations: delete chat %(efc_delete_chat)s\n"
+"▶ Leave conversations: block referrer %(efc_block_sender)s\n"
+"▶ Leave conversations: scheme %(efc_scheme)s\n"
+"\n"
+"▶ In ignored: %(ignored)d\n"
+"▶ In global ignored: %(ignored_global)d\n"
+"▶ In mute: %(muted)d\n"
+"\n"
+"▶ Service prefixes: %(service_prefixes)s\n"
+"▶ Self prefixes: %(self_prefixes)s\n"
+"▶ Duty prefixes: %(duty_prefixes)s\n"
+
+#: commands/info.py:58
+msgid "белый список"
+msgstr "white list"
+
+#: commands/info.py:58
+msgid "черный список"
+msgstr "black list"
+
+#: commands/ping.py:37
+#, python-format
+msgid ""
+"%(answer)s Модуль ЛП\n"
+"Ответ через %(delta)s с."
+msgstr ""
+"%(answer)s LP Module\n"
+"Reply via %(delta)s sec."
+
+#: commands/ping.py:53
+#, python-format
+msgid ""
+"%(answer)s Модуль ЛП\n"
+"Ответ через %(delta)s с.\n"
+"Пинг ВК %(vk)g с.\n"
+"Пинг БД %(database)g с.\n"
+"Пинг IDM %(idm)g с."
+msgstr ""
+"%(answer)s LP Module\n"
+"Reply via %(delta)s sec.\n"
+"Ping to VK %(vk)g sec.\n"
+"Ping to DB %(database)g sec.\n"
+"Ping to IDM %(idm)g sec."
+
+#: commands/ping.py:72 commands/ping.py:74
+msgid "ПОНГ"
+msgstr "PONG"
+
+#: commands/ping.py:83 commands/ping.py:85
+msgid "КОНГ"
+msgstr "KONG"
+
+#: commands/ping.py:94 commands/ping.py:96
+msgid "ПАУ"
+msgstr "PAU"
+
+#~ msgid "<p:prefix_service> пинг"
+#~ msgstr "<p:prefix_service> ping"
+
+#~ msgid "<p:prefix_service> пинг подробно"
+#~ msgstr "<p:prefix_service> ping detail"
+
+#~ msgid "подробно"
+#~ msgstr "detail"
+
+#~ msgid "<p:prefix_service> кинг"
+#~ msgstr "<p:prefix_service> king"
+
+#~ msgid "<p:prefix_service> кинг подробно"
+#~ msgstr "<p:prefix_service> king detail"
+
+#~ msgid "<p:prefix_service> пиу"
+#~ msgstr "<p:prefix_service> piu"
+
+#~ msgid "<p:prefix_service> пиу подробно"
+#~ msgstr "<p:prefix_service> piu detail"

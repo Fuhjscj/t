@@ -9,7 +9,7 @@ from tortoise import Tortoise
 from vkbottle import User
 
 from .commands import blueprints
-from . import const
+from . import const, utils
 
 base_dir = os.path.dirname(__file__)
 lang_dir = os.path.join(base_dir, 'lang')
@@ -47,6 +47,8 @@ def init_database(url: str):
             modules={'models': ['idm_lp.models']}
         )
         await Tortoise.generate_schemas()
+        await utils.temp.AliasTemp.load_from_db()
+        await utils.temp.RolePlayCommandTemp.load_from_db()
 
     return init
 
@@ -143,7 +145,6 @@ start_parser.add_argument(
 )
 
 args = parser.parse_args()
-print(args)
 
 if hasattr(args, 'script_name'):
     from . import utils, const
