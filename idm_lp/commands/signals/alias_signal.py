@@ -5,7 +5,7 @@ from vkbottle.user import Blueprint, Message
 
 from idm_lp import const
 from idm_lp.utils import send_request
-from idm_lp.models import Alias
+from idm_lp.models import AliasPydantic
 
 user = Blueprint(
     name='aliases_blueprint'
@@ -14,7 +14,7 @@ user = Blueprint(
 
 async def send_signal(
         message: Message,
-        alias: Alias,
+        alias: AliasPydantic,
         separator: str = ' ',
         signal: Optional[str] = None
 ):
@@ -45,10 +45,10 @@ async def send_signal(
 
 
 @user.on.message_handler(FromMe(), text=['<alias:alias> <signal>', '<alias:alias>'])
-async def duty_signal(message: Message, alias: Alias, signal: str = None):
+async def duty_signal(message: Message, alias: AliasPydantic, signal: str = None):
     await send_signal(message, alias, ' ', signal)
 
 
 @user.on.message_handler(FromMe(), text='<alias:alias>\n<signal>')
-async def duty_signal_new_line(message: Message, alias: Alias, signal: str):
+async def duty_signal_new_line(message: Message, alias: AliasPydantic, signal: str):
     await send_signal(message, alias, '\n', signal)

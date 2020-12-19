@@ -1,5 +1,7 @@
 from enum import Enum
+from typing import Type
 
+from pydantic import BaseModel
 from tortoise import Model, fields
 
 
@@ -21,3 +23,21 @@ class RolePlayCommand(Model):
 
     class Meta:
         table = "role_play"
+
+
+class RolePlayCommandPydantic(BaseModel):
+    name: str
+    gen: RolePlayCommandGenEnum
+    formatter_man: str
+    formatter_woman: str
+    all_ending: str
+
+    @classmethod
+    def load(cls: Type['RolePlayCommandPydantic'], model: RolePlayCommand) -> 'RolePlayCommandPydantic':
+        return cls(
+            name=model.name,
+            gen=model.gen,
+            formatter_man=model.formatter_man,
+            formatter_woman=model.formatter_woman,
+            all_ending=model.all_ending
+        )

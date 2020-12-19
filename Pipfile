@@ -11,6 +11,7 @@ tortoise-orm = "*"
 aiomysql = "*"
 asgiref = "*"
 aiohttp = "*"
+aerich = "*"
 
 [requires]
 python_version = "3.8"

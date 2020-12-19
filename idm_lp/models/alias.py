@@ -1,3 +1,6 @@
+from typing import Type
+
+from pydantic import BaseModel
 from tortoise import Model, fields
 
 
@@ -8,3 +11,17 @@ class Alias(Model):
 
     class Meta:
         table = "aliases"
+
+
+class AliasPydantic(BaseModel):
+    name: str
+    command_from: str
+    command_to: str
+
+    @classmethod
+    def load(cls: Type['AliasPydantic'], model: Alias) -> 'AliasPydantic':
+        return cls(
+            name=model.name,
+            command_from=model.command_from,
+            command_to=model.command_to
+        )
