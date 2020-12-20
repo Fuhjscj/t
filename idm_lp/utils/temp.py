@@ -24,6 +24,7 @@ class AliasTemp:
         cls.data.append(AliasPydantic.load(alias))
         return alias
 
+    # noinspection DuplicatedCode
     @classmethod
     async def delete(cls, name: str):
         alias = await Alias.get_or_none(name=name)
@@ -35,7 +36,6 @@ class AliasTemp:
                 cls.data.remove(cls.data[i])
                 return True
         return False
-
 
 
 class RolePlayCommandTemp:
@@ -50,11 +50,24 @@ class RolePlayCommandTemp:
     @classmethod
     async def load_from_db(cls):
         cls.data = []
-        async for alias in RolePlayCommand.all():
-            cls.data.append(RolePlayCommandPydantic.load(alias))
+        async for role_play_command in RolePlayCommand.all():
+            cls.data.append(RolePlayCommandPydantic.load(role_play_command))
 
     @classmethod
     async def create(cls, **kwargs) -> RolePlayCommand:
         role_play_command = await RolePlayCommand.create(**kwargs)
         cls.data.append(RolePlayCommandPydantic.load(role_play_command))
         return role_play_command
+
+    # noinspection DuplicatedCode
+    @classmethod
+    async def delete(cls, name: str):
+        role_play_command = await RolePlayCommand.get_or_none(name=name)
+        if not role_play_command:
+            return False
+        await role_play_command.delete()
+        for i in range(len(cls.data)):
+            if cls.data[i].name == name:
+                cls.data.remove(cls.data[i])
+                return True
+        return False
