@@ -8,6 +8,7 @@ duty=!лд,.лд
 self=!л,.л
 
 [Database]
+db_url=
 host=
 user=
 password=
