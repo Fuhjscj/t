@@ -25,7 +25,7 @@ class Settings(Model):
 
     @classmethod
     async def get_or_create_model(
-        cls: Type[MODEL],
+            cls: Type[MODEL],
     ) -> MODEL:
         model = await cls.first()
         if model is None:

@@ -1,11 +1,9 @@
 from typing import Optional
 
-from asgiref.sync import async_to_sync
-from tortoise.exceptions import DoesNotExist
 from vbml import Patcher
 
 from idm_lp.const import config
-from idm_lp.models import Alias, RolePlayCommand, AliasPydantic, RolePlayCommandPydantic
+from idm_lp.models import AliasPydantic, RolePlayCommandPydantic
 from idm_lp.utils.temp import AliasTemp, RolePlayCommandTemp
 
 

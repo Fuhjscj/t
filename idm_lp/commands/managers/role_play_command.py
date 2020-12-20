@@ -1,10 +1,10 @@
+from gettext import gettext as _
 from typing import Optional, List
 
 import requests
 from pydantic import ValidationError
 from vkbottle.rule import FromMe
 from vkbottle.user import Blueprint, Message
-from gettext import gettext as _
 
 from idm_lp.models import RolePlayCommand
 from idm_lp.utils import edit_message

@@ -1,17 +1,16 @@
 import argparse
 import gettext
 import locale
+import os
 from configparser import ConfigParser
 from gettext import gettext as _
-import os
 
 import requests
 from tortoise import Tortoise
-
 from vkbottle import User
 
-from .commands import blueprints
 from . import const, utils
+from .commands import blueprints
 
 base_dir = os.path.dirname(__file__)
 lang_dir = os.path.join(base_dir, 'lang')
@@ -66,6 +65,7 @@ def startup_message(_user: User):
             random_id=0,
             message=text
         )
+
     return wrapper
 
 

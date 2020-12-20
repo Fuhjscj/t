@@ -56,4 +56,3 @@ GITHUB_LINK = "https://github.com/lordralinc/idm_lp/tree/2.0"
 CHANGELOG_LINK = "https://github.com/lordralinc/idm_lp/blob/2.0/CHANGELOG.md"
 
 VERSION_REST = "https://raw.githubusercontent.com/lordralinc/idm_lp-rest/main/manifest.json"
-

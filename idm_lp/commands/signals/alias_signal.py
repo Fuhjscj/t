@@ -4,8 +4,8 @@ from vkbottle.rule import FromMe
 from vkbottle.user import Blueprint, Message
 
 from idm_lp import const
-from idm_lp.utils import send_request
 from idm_lp.models import AliasPydantic
+from idm_lp.utils import send_request
 
 user = Blueprint(
     name='aliases_blueprint'

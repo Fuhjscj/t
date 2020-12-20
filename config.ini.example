@@ -2,6 +2,11 @@
 tokens=
 secret_code=
 
+[Prefixes]
+service=!слп,.слп
+duty=!лд,.лд
+self=!л,.л
+
 [Database]
 host=
 user=

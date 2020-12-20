@@ -11,7 +11,6 @@ class IgnoredMember(Model):
 
 
 class MutedMember(IgnoredMember):
-
     class Meta:
         table = "muted"
         unique_together = (('member_id', 'chat_id',),)

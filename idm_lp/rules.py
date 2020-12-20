@@ -1,5 +1,6 @@
 from tortoise.exceptions import DoesNotExist
 from vkbottle.framework.framework.rule import AbstractMessageRule, Message
+
 from .models import IgnoredMember, IgnoredGlobalMember, MutedMember
 
 
