@@ -143,7 +143,7 @@ async def show_rp_commands(message: Message, **kwargs):
     for rp_cmd in RolePlayCommandTemp.data:
         text += f"{index}. {rp_cmd.name}\n"
         index += 1
-    text += _("\nВсего РП-комманд: %d\nРП-комманд в памяти: %d") % (
+    text += _("\nВсего РП-команд: %d\nРП-команд в памяти: %d") % (
         await RolePlayCommand.all().count(),
         len(RolePlayCommandTemp.data)
     )
@@ -158,7 +158,7 @@ async def show_rp_commands(message: Message, **kwargs):
     await RolePlayCommandTemp.load_from_db()
     await edit_message(
         message,
-        _("✅ РП-комманды обновлены")
+        _("✅ РП-команды обновлены")
     )
 
 

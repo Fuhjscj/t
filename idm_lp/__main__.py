@@ -55,9 +55,10 @@ def startup_message(_user: User):
         cloud_version = const.Version(**version_rest['version'])
         if cloud_version > const.Version():
             text += _(
-                "Доступно обновление %(version)s\n%(github_url)s"
+                "Доступно обновление %(version)s\n История изменений: %(changelog_url)s\n%(github_url)s"
             ) % dict(
                 version=cloud_version.str(),
+                changelog_url=const.CHANGELOG_LINK,
                 github_url=const.GITHUB_LINK
             )
         await user.api.messages.send(

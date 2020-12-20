@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-12-19 05:10+0300\n"
-"PO-Revision-Date: 2020-12-19 05:20+0300\n"
+"POT-Creation-Date: 2020-12-20 03:47+0300\n"
+"PO-Revision-Date: 2020-12-20 03:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -14,50 +14,70 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: __main__.py:33
+#: __main__.py:35
 #, python-format
 msgid "%(prog)s: error: %(message)s\n"
 msgstr "%(prog)s: error: %(message)s\n"
 
-#: __main__.py:34
+#: __main__.py:36
 msgid "expected one argument"
 msgstr "expected one argument"
 
-#: __main__.py:35
+#: __main__.py:37
 #, python-format
 msgid "invalid choice: %(value)r (choose from %(choices)s)"
 msgstr "invalid choice: %(value)r (choose from %(choices)s)"
 
-#: __main__.py:36
+#: __main__.py:38
 #, python-format
 msgid "not allowed with argument %s"
 msgstr "not allowed with argument %s"
 
-#: __main__.py:37
+#: __main__.py:39
 msgid "optional arguments"
 msgstr "optional arguments"
 
-#: __main__.py:38
+#: __main__.py:40
 msgid "positional arguments"
 msgstr "positional arguments"
 
-#: __main__.py:39
+#: __main__.py:41
 msgid "show this help message and exit"
 msgstr "show this help message and exit"
 
-#: __main__.py:40
+#: __main__.py:42
 msgid "usage: "
 msgstr "usage: "
 
-#: __main__.py:84 __main__.py:109
+#: __main__.py:48
+#, python-format
+msgid ""
+"IDM LP by %(author)s запущен\n"
+"Текущая версия: v%(version)s\n"
+msgstr ""
+"IDM LP by %(author)s launched\n"
+"Current version: v%(version)s\n"
+
+#: __main__.py:58
+#, python-format
+msgid ""
+"Доступно обновление %(version)s\n"
+" История изменений: %(changelog_url)s\n"
+"%(github_url)s"
+msgstr ""
+"Доступно обновление %(version)s\n"
+"Change history: %(changelog_url)s\n"
+"%(github_url)s"
+
+#: __main__.py:123 __main__.py:148
 msgid "Language to use."
 msgstr "Используемый язык."
 
-#: __main__.py:88 __main__.py:113
+#: __main__.py:127 __main__.py:152
 msgid "Locale to use."
 msgstr "Используемый язык."
 
-#: __main__.py:100
+#: __main__.py:139
 msgid ""
 "LP модуль позволяет работать приемнику сигналов «IDM multi» работать в любых "
 "чатах.\n"
@@ -67,40 +87,40 @@ msgstr ""
 "room.\n"
 "He also adds ignore, global ignore, mut and alias."
 
-#: __main__.py:115
+#: __main__.py:154
 msgid "Вариант запуска"
 msgstr "Launch option"
 
-#: __main__.py:117
+#: __main__.py:156
 msgid "Скрипты помощи"
 msgstr "Help scripts"
 
-#: __main__.py:118
+#: __main__.py:157
 msgid "Запуск скрипта"
 msgstr "Running a script"
 
-#: __main__.py:120
+#: __main__.py:159
 msgid "Имя скрипта"
 msgstr "Script name"
 
-#: __main__.py:127
+#: __main__.py:166
 msgid "Путь до конфига"
 msgstr "Path to config"
 
-#: __main__.py:135
+#: __main__.py:174
 msgid "Уровень логгирования vkbottle"
 msgstr "Vkbottle logging level"
 
-#: __main__.py:142
+#: __main__.py:181
 msgid "Путь до файла с логами vkbottle"
 msgstr "Path to the file with vkbottle logs"
 
-#: __main__.py:154
+#: __main__.py:192
 #, python-format
 msgid "Скрипт %s не найден"
 msgstr "Script %s not found"
 
-#: commands/info.py:26
+#: commands/info.py:24
 #, python-format
 msgid ""
 "❤ IDM LP v%(version)s by %(author)s\n"
@@ -145,13 +165,111 @@ msgstr ""
 "▶ Self prefixes: %(self_prefixes)s\n"
 "▶ Duty prefixes: %(duty_prefixes)s\n"
 
-#: commands/info.py:58
+#: commands/info.py:56
 msgid "белый список"
 msgstr "white list"
 
-#: commands/info.py:58
+#: commands/info.py:56
 msgid "черный список"
 msgstr "black list"
+
+#: commands/managers/aliases.py:22
+#, python-format
+msgid "⚠ Алиас «%s» уже был создан"
+msgstr "⚠ Alias «%s» has already been created"
+
+#: commands/managers/aliases.py:32
+#, python-format
+msgid "✅ Алиас «%s» был создан"
+msgstr "✅ Alias «%s»  has been created"
+
+#: commands/managers/aliases.py:43
+#, python-format
+msgid "✅ Алиас «%s» удален"
+msgstr "✅  Alias «%s» removed"
+
+#: commands/managers/aliases.py:49
+#, python-format
+msgid "⚠ Алиас «%s» не найден"
+msgstr "Alias %s not found"
+
+#: commands/managers/aliases.py:56
+msgid "📃 Алиасы: \n"
+msgstr "📃 Aliases: \n"
+
+#: commands/managers/aliases.py:61
+#, python-format
+msgid ""
+"\n"
+"Всего алиасов: %d\n"
+"Алиасов в памяти: %d"
+msgstr ""
+"\n"
+"Total aliases: %d\n"
+"Total aliases in memory: %d"
+
+#: commands/managers/aliases.py:73
+msgid "✅ Алиасы успешно обновлены"
+msgstr "✅ Aliases updated successfully"
+
+#: commands/managers/role_play_command.py:141
+msgid "📃 Доступные РП-команды:\n"
+msgstr "📃 Available RP-commands:\n"
+
+#: commands/managers/role_play_command.py:146
+#, python-format
+msgid ""
+"\n"
+"Всего РП-команд: %d\n"
+"РП-команд в памяти: %d"
+msgstr ""
+"\n"
+"Total RP-commands: %d\n"
+"Total RP-commands in memory: %d"
+
+#: commands/managers/role_play_command.py:161
+msgid "✅ РП-команды обновлены"
+msgstr "✅ RP-commands updated"
+
+#: commands/managers/role_play_command.py:180
+#, python-format
+msgid "Произошла ошибка при загрузке страницы: %s"
+msgstr "An error occured while loading the page: %s"
+
+#: commands/managers/role_play_command.py:183
+#, python-format
+msgid "Импорт РП-команд со страницы %s\n"
+msgstr "Import RP-commands from a page %s\n"
+
+#: commands/managers/role_play_command.py:190
+#, python-format
+msgid "%d. Произошла ошибка валидации: %s\n"
+msgstr "%d. Validation error occured: %s\n"
+
+#: commands/managers/role_play_command.py:193
+#, python-format
+msgid "%d. Произошла ошибка валидации: отсутствует форматтер\n"
+msgstr "%d. Validation error occured: formatter missing\n"
+
+#: commands/managers/role_play_command.py:197
+#, python-format
+msgid "%d. РП-команда «%s» импортирована\n"
+msgstr "%d. RP-command  «%s» imported\n"
+
+#: commands/managers/role_play_command.py:199
+#, python-format
+msgid "%d. Ошибка импорта\n"
+msgstr "%d. Import error\n"
+
+#: commands/managers/role_play_command.py:211
+#, python-format
+msgid "✅ РП-команда «%s» удалена"
+msgstr "✅  RP-command «%s» removed"
+
+#: commands/managers/role_play_command.py:217
+#, python-format
+msgid "⚠ РП-команда «%s» не найдена"
+msgstr "⚠ RP-command «%s» not found"
 
 #: commands/ping.py:37
 #, python-format
