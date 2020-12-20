@@ -184,10 +184,10 @@ start_parser.add_argument(
 args = parser.parse_args()
 
 if hasattr(args, 'script_name'):
-    from . import utils, const
+    from . import scriptis, const
 
-    if hasattr(utils, args.script_name):
-        getattr(utils, args.script_name)(base_dir)
+    if hasattr(scriptis, args.script_name):
+        getattr(scriptis, args.script_name)(base_dir)
     else:
         print(_("Скрипт %s не найден" % args.script_name))
     exit(1)
@@ -196,8 +196,10 @@ if hasattr(args, 'config_path'):
     config = ConfigParser()
     config.read(args.config_path, encoding='utf-8')
     const.config = config
-
-    database_url = "mysql://%(user)s:%(password)s@%(host)s:3306/%(database)s" % config['Database']
+    if config['Database'].get('db_url', None):
+        database_url = config['Database'].get('db_url', None)
+    else:
+        database_url = "mysql://%(user)s:%(password)s@%(host)s:3306/%(database)s" % config['Database']
     from .validators import *
 
     user = User(
