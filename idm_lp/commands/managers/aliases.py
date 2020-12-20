@@ -37,7 +37,7 @@ async def wrapper(message: Message, name: str, command_from: str, command_to: st
 async def wrapper(message: Message, name: str, **kwargs):
     name = name.lower()
 
-    if AliasTemp.delete(name):
+    if await AliasTemp.delete(name):
         await edit_message(
             message,
             _("✅ Алиас «%s» удален") % name
@@ -48,6 +48,7 @@ async def wrapper(message: Message, name: str, **kwargs):
             message,
             _("⚠ Алиас «%s» не найден") % name
         )
+    await AliasTemp.load_from_db()
 
 
 @user.on.message_handler(text="<p:prefix_service> алиасы")
