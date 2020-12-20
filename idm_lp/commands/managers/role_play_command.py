@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 import requests
 from pydantic import ValidationError
@@ -14,19 +14,30 @@ user = Blueprint(
     name='role_play_commands_blueprint'
 )
 
+
+def generate_rule(string: str) -> List[str]:
+    return [
+        string + "\n<payload>",
+        string + " <action>\n<payload>",
+        string + " <action>",
+    ]
+
+
 all_role_play_cmd = [
-    "<p:prefix_service> <role_play_command:role_play_command> всех",
-    "<p:prefix_service> <role_play_command:role_play_command> всем",
+    *generate_rule("<p:prefix_service> <role_play_command:role_play_command> всех"),
+    *generate_rule("<p:prefix_service> <role_play_command:role_play_command> всем"),
 ]
-user_id_cmd = "<p:prefix_service> <role_play_command:role_play_command> [id<user_id:int>|<name>]"
-no_user_id_cmd = "<p:prefix_service> <role_play_command:role_play_command>"
+user_id_cmd = generate_rule("<p:prefix_service> <role_play_command:role_play_command> [id<user_id:int>|<name>]")
+no_user_id_cmd = generate_rule("<p:prefix_service> <role_play_command:role_play_command>")
 
 
 async def get_role_play_message(
         message: Message,
         role_play_command: RolePlayCommandPydantic,
         user_id: Optional[int] = None,
-        call_all: bool = False
+        call_all: bool = False,
+        action: str = None,
+        payload: str = None
 ) -> str:
     called_user = (await message.api.users.get(fields=["sex"]))[0]
 
@@ -41,16 +52,23 @@ async def get_role_play_message(
 
     second_user = (await message.api.users.get(user_ids=user_id, name_case=role_play_command.gen.value))[0]
     last_user = f"[id{second_user.id}|{second_user.first_name} {second_user.last_name}]"
-    return pattern.format(
+    text = pattern.format(
         first_user=first_user,
         second_user=last_user
     )
+    if action:
+        text += " " + action
+    if payload:
+        text += f"\n С репликой: «{payload}»"
+    return text
 
 
 @user.on.message_handler(FromMe(), text=all_role_play_cmd)
 async def role_play_command_wrapper(
         message: Message,
         role_play_command: RolePlayCommandPydantic,
+        action: str = None,
+        payload: str = None,
         **kwargs
 ):
     await edit_message(
@@ -58,7 +76,9 @@ async def role_play_command_wrapper(
         await get_role_play_message(
             message,
             role_play_command,
-            call_all=True
+            call_all=True,
+            action=action,
+            payload=payload
         )
     )
 
@@ -68,6 +88,8 @@ async def role_play_command_wrapper(
         message: Message,
         role_play_command: RolePlayCommandPydantic,
         user_id: int,
+        action: str = None,
+        payload: str = None,
         **kwargs
 ):
     await edit_message(
@@ -75,7 +97,9 @@ async def role_play_command_wrapper(
         await get_role_play_message(
             message,
             role_play_command,
-            user_id=user_id
+            user_id=user_id,
+            action=action,
+            payload=payload
         )
     )
 
@@ -84,6 +108,8 @@ async def role_play_command_wrapper(
 async def role_play_command_wrapper(
         message: Message,
         role_play_command: RolePlayCommandPydantic,
+        action: str = None,
+        payload: str = None,
         **kwargs
 ):
     user_id = None
@@ -103,7 +129,9 @@ async def role_play_command_wrapper(
         await get_role_play_message(
             message,
             role_play_command,
-            user_id=user_id
+            user_id=user_id,
+            action=action,
+            payload=payload
         )
     )
 
