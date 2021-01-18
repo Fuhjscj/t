@@ -11,6 +11,10 @@ tortoise-orm = "*"
 aiomysql = "*"
 aiohttp = "*"
 requests = "*"
+async-cron = "*"
+aerich = "*"
+windows-curses = "*"
+npyscreen = "*"
 
 [requires]
 python_version = "3.7"

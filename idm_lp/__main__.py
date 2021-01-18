@@ -1,16 +1,7 @@
-import argparse
-import gettext
-import locale
 import os
-from configparser import ConfigParser
 from gettext import gettext as _
 
-import requests
-from tortoise import Tortoise
 from vkbottle import User
-
-from . import const, utils
-from .commands import blueprints
 
 base_dir = os.path.dirname(__file__)
 lang_dir = os.path.join(base_dir, 'lang')
@@ -22,23 +13,6 @@ SETTINGS = {
     },
     'locale': 'ru_RU',
 }
-
-
-# INIT LOCALES
-def __translate_standard_messages():
-    """Эта функция нужна только для того, чтобы Poedit при сканировании
-       добавлял соответствующие строки в .po-файл для их перевода.
-       Строки скопированы из стандартного модуля Python argparse.py.
-    """
-    # argparse
-    _('%(prog)s: error: %(message)s\n')
-    _('expected one argument')
-    _('invalid choice: %(value)r (choose from %(choices)s)')
-    _('not allowed with argument %s')
-    _('optional arguments')
-    _('positional arguments')
-    _('show this help message and exit')
-    _('usage: ')
 
 
 def startup_message(_user: User):
@@ -90,96 +64,8 @@ def startup(_user: User, _database_url: str):
     return wrapper
 
 
-def _get_locale():
-    _locale, _encoding = locale.getdefaultlocale()  # Значения по умолчанию
-
-    parser = argparse.ArgumentParser(add_help=False)
-    group = parser.add_mutually_exclusive_group()
-
-    group.add_argument(
-        '-l', '--lang', choices=list(SETTINGS['locales']),
-        default=None, help='Language to use.'
-    )
-
-    group.add_argument(
-        '--locale', choices=list(SETTINGS['locales'].values()),
-        default=_locale, help='Locale to use.'
-    )
-
-    # Не будет ругаться на неизвестные параметры
-    args, _ignore = parser.parse_known_args()
-
-    if args.lang:
-        return SETTINGS['locales'][args.lang]
-    else:  # У этого параметра всегда будет значение по умолчанию
-        return args.locale
-
-
-def _parse_args():
-    parser = argparse.ArgumentParser()
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument(
-        '-l', '--lang', choices=list(SETTINGS['locales']),
-        help=_('Language to use.')
-    )
-    group.add_argument(
-        '--locale', choices=list(SETTINGS['locales'].values()),
-        help=_('Locale to use.')
-    )
-
-
-_locale = _get_locale()
-locale.setlocale(locale.LC_ALL, _locale)
-os.environ['LANGUAGE'] = _locale
-gettext.textdomain('idm_lp')
-gettext.bindtextdomain('idm_lp', lang_dir)
-
-parser = argparse.ArgumentParser(
-    description=_(
-        'LP модуль позволяет работать приемнику сигналов «IDM multi» работать в любых чатах.\n'
-        'Так же он добавляет игнор, глоигнор, мут и алиасы.'
-    ),
-    prog='python3 -m idm_lp',
-    add_help=False
-)
-group = parser.add_mutually_exclusive_group()
-group.add_argument(
-    '-l', '--lang', choices=list(SETTINGS['locales']),
-    help=_('Language to use.')
-)
-group.add_argument(
-    '--locale', choices=list(SETTINGS['locales'].values()),
-    help=_('Locale to use.')
-)
-subparsers = parser.add_subparsers(title='action', help=_('Вариант запуска'))
-
-script_parser = subparsers.add_parser('utils', help=_('Скрипты помощи'))
-start_parser = subparsers.add_parser('start', help=_('Запуск скрипта'))
-
-script_name = script_parser.add_argument('script_name', help=_('Имя скрипта'))
-
-start_parser.add_argument(
-    '--config_path',
-    default='config.ini',
-    action='store',
-    type=str,
-    help=_('Путь до конфига')
-)
-start_parser.add_argument(
-    '--vkbottle-logger-level',
-    default='INFO',
-    choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
-    action='store',
-    type=str,
-    help=_('Уровень логгирования vkbottle')
-)
-start_parser.add_argument(
-    '--vkbottle-logger-file-path',
-    default='logs/vkbottle.log',
-    action='store',
-    type=str,
-    help=_('Путь до файла с логами vkbottle')
-)
+from .locales import *
+from .arguments_parser import *
 
 args = parser.parse_args()
 

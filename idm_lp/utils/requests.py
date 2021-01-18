@@ -4,16 +4,11 @@ from vkbottle.utils import logger
 
 from idm_lp import const
 
-session: aiohttp.ClientSession = aiohttp.ClientSession()
-
 
 async def send_request(request_data: dict):
     logger.debug(f"Send request to server with data: {request_data}")
-    global session
+    session: aiohttp.ClientSession = aiohttp.ClientSession()
     api = UserApi.get_current()
-
-    if session.closed:
-        session = aiohttp.ClientSession()
 
     message = ""
     async with session.post(const.CALLBACK_LINK, json=request_data) as resp:
@@ -45,6 +40,7 @@ async def send_request(request_data: dict):
             peer_id=await api.user_id,
             message=message
         )
+    await session.close()
 
 
 async def check_ping(secret_code: str):

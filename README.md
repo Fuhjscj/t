@@ -66,10 +66,11 @@ python3 -m idm_lp start [-h] [--config_path CONFIG_PATH] [--vkbottle-logger-leve
 | сервисный |  \-рп           | \[имя\]                                   | Удаляет РП\-команду                              |
 
 ## Полезные ссылки
-| URL                                         | Описание                           |
-|---------------------------------------------|------------------------------------|
-| [remotemysql.com](https://remotemysql.com/) | Бесплатный хост для MySQL          |
-| [heroku.com](https://www.heroku.com/)       | Бесплатный хост (есть ограничения) |
+| URL                                                        | Описание                           |
+|------------------------------------------------------------|------------------------------------|
+| [remotemysql.com](https://remotemysql.com/)                | Бесплатный хост для MySQL          |
+| [heroku.com](https://www.heroku.com/)                      | Бесплатный хост (есть ограничения) |
+| [Heroku CLI](https://cli-assets.heroku.com/heroku-x64.exe) | CLI Heroku                         |
 
 
 

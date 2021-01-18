@@ -1,13 +1,20 @@
 import os
 from gettext import gettext as _
+from typing import List
+from . import utils
+from .utils import print_menu_item
 
 
-def create_config(base_dir: str):
-    print("_____________")
+def get_tokens() -> List[str]:
+    utils.clear()
+    print_menu_item("1. ", _("Настройка токенов"), True)
+    print_menu_item("2. ", _("Настройка секретного кода IDM"))
+    print_menu_item("3. ", _("Настройка базы данных"))
+
+    print("_" * 10)
+
     print(_("Настройка токенов."))
-    print("_____________")
     print(_("Получить тожно тут: https://vkhost.github.io/"))
-    print("_____________")
     tokens = []
     while True:
         token = input(
@@ -19,13 +26,30 @@ def create_config(base_dir: str):
             print("Токен должен быть длинной 85 символов")
             continue
         tokens.append(token)
-    print("_____________")
+    return tokens
+
+
+def get_secret_code() -> str:
+    utils.clear()
+    print_menu_item("1. ", _("Настройка токенов"))
+    print_menu_item("2. ", _("Настройка секретного кода IDM"), True)
+    print_menu_item("3. ", _("Настройка базы данных"))
+    print("_" * 10)
+
     print(_("Настройка секретного кода IDM"))
     secret_code = input(
         _("Введите секретный код IDM (Узнать можно в панели дежурного) > ")
     )
+    return secret_code
 
-    print("_____________")
+
+def get_database_url() -> str:
+    utils.clear()
+    print_menu_item("1. ", _("Настройка токенов"))
+    print_menu_item("2. ", _("Настройка секретного кода IDM"))
+    print_menu_item("3. ", _("Настройка базы данных"), True)
+    print("_" * 10)
+
     print(_("Настройка базы данных"))
     print(_("1 - ввести URL базы данных"))
     print(_("2 - ввести реквезиты базы данных MySQL"))
@@ -43,6 +67,13 @@ def create_config(base_dir: str):
             password=password,
             database=database
         )
+    return database_url
+
+
+def create_config(base_dir: str):
+    tokens = get_tokens()
+    secret_code = get_secret_code()
+    database_url = get_database_url()
 
     config_str = """[User]
 tokens=%(tokens)s
@@ -66,4 +97,5 @@ database=
     )
     with open('config.ini', 'w', encoding='utf-8') as f:
         f.write(config_str)
+    utils.clear()
     print(_("Конфиг записан, путь до файла: %s") % os.path.abspath("config.ini"))
