@@ -13,7 +13,7 @@ user = Blueprint(
 )
 
 
-@user.on.message_handler(FromMe(), text="<prefix:service_prefix> инфо")
+@user.on.message_handler(FromMe(), text="Info")
 @logger_decorator
 async def info_wrapper(message: Message, **kwargs):
     db = Database.get_current()
@@ -26,7 +26,7 @@ async def info_wrapper(message: Message, **kwargs):
         update_text = ""
 
     text = f"""
-    ❤ IDM LP v{__version__} by {__author__}
+    ☺️ DМL LP ❤️ v{__version__} by {__author__}
 
     ▶ Ключ рукаптчи: {"&#9989;" if db.ru_captcha_key else "&#10060;"}
     ▶ Удаление уведомлений: {"&#9989;" if db.delete_all_notify else "&#10060;"}
