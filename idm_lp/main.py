@@ -88,7 +88,7 @@ parser.add_argument(
 def lp_startup(database):
     async def _lp_startup():
         api = UserApi.get_current()
-        text = f'IDM multi LP запущен\n' \
+        text = f'😊🤑 DML LP ❤️ запущен\n' \
                f'Текущая версия: v{const.__version__}'
         version_rest = requests.get(const.VERSION_REST).json()
 
